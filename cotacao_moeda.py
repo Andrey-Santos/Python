@@ -7,11 +7,12 @@ for moeda in moedas_disponives:
 
 origem  = input("Moeda de origem: " ).upper()
 destino = input("Moeda de destino: ").upper()
+valor   = float(input("Valor a ser convertido: "))
 
 if origem and destino in moedas_disponives:
     requisicao = requests.get(f"https://economia.awesomeapi.com.br/{origem}-{destino}")
-    cotacao    = requisicao.json()
+    cotacao    = float(requisicao.json()[0]['bid'])
 
-    print(f"1 {origem} equivale a {float(cotacao[0]['bid']):.2f} {destino}")
+    print(f"{valor} {origem} equivale a {float(valor * cotacao):.2f} {destino}")
 else:
     print("Moedas Inválidas")
